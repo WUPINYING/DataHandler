@@ -89,34 +89,6 @@ namespace DataHandler.Controllers
             return NoContent();
         }
 
-        // POST: api/Customers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Customers>> PostCustomers(Customers customers)
-        {
-          if (_db.Customers == null)
-          {
-              return Problem("Entity set 'NorthwindContext.Customers'  is null.");
-          }
-            _db.Customers.Add(customers);
-            try
-            {
-                await _db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (CustomersExists(customers.CustomerId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetCustomers", new { id = customers.CustomerId }, customers);
-        }
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]

@@ -11,9 +11,9 @@ namespace DataHandler.Models.Exts
 			{
 				CustomerId = dto.CustomerId,
 				Country = dto.Country,
-				LastName = dto.LastName,
 				OrderDate = dto.OrderDate,
-				UnitPrice = dto.UnitPrice
+				UnitPrice = dto.UnitPrice,
+				LastName = dto.LastName
 			};
 		}
 	}
