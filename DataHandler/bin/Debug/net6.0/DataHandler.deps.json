@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "DataHandler/1.0.0": {
         "dependencies": {
+          "Dapper": "2.0.151",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.21",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.16",
@@ -15,6 +16,14 @@
         },
         "runtime": {
           "DataHandler.dll": {}
+        }
+      },
+      "Dapper/2.0.151": {
+        "runtime": {
+          "lib/net5.0/Dapper.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.151.35995"
+          }
         }
       },
       "Humanizer/2.14.1": {
@@ -2525,6 +2534,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Dapper/2.0.151": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mMcZgx1lim0/i1Ozu+lgnBM4GwNIHpCuxV6BV2ovsEfZAXRAq4jb6RIhxGDcVjtmXMLPpdp85jHPdDjBMMwejw==",
+      "path": "dapper/2.0.151",
+      "hashPath": "dapper.2.0.151.nupkg.sha512"
     },
     "Humanizer/2.14.1": {
       "type": "package",

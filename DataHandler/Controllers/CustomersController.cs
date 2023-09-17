@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DataHandler.Models;
+using DataHandler.Models.Interface;
+using DataHandler.Models.Services;
+using DataHandler.Models.Dtos;
+using DataHandler.Models.ViewModels;
+using DataHandler.Models.Exts;
 
 namespace DataHandler.Controllers
 {
@@ -13,45 +18,45 @@ namespace DataHandler.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly NorthwindContext _context; //放到全域變數當中就可以使用了
+        private readonly NorthwindContext _db; //放到全域變數當中就可以使用了
+        private readonly ICustomerRepo _repo;
 
-        public CustomersController(NorthwindContext context) //NorthwindContext 物件已被 new 出來，才可以使用 DI
+        public CustomersController(NorthwindContext db,ICustomerRepo repo) //NorthwindContext 物件已被 new 出來，才可以使用 DI
 		{
-            _context = context;
+            _db = db;
+            _repo = repo;
         }
         //public CustomersController()
         //{
-        //    _context = new NorthwindContext();
+        //    _db = new NorthwindContext();
         //}
 
         // GET: api/Customers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customers>>> GetCustomers()
         {
-          if (_context.Customers == null)
-          {
-              return NotFound();
-          }
-            return await _context.Customers.ToListAsync();
+            if (_db.Customers == null)
+            {
+                return NotFound();
+            }
+            return await _db.Customers.ToListAsync();
+
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customers>> GetCustomers(string id)
+        public async Task<ActionResult<CustomerVM>> GetCustmerOrderInfo(string id)
         {
-          if (_context.Customers == null)
-          {
-              return NotFound();
-          }
-            var customers = await _context.Customers.FindAsync(id);
+			var service = new CustomerService(_repo);
+			var result = service.GetCustmerOrderInfo(id).Select(C=>C.ToVM());
 
-            if (customers == null)
+            if(result.Count() <= 0)
             {
-                return NotFound();
-            }
+				return Ok("找不到對應資料");
+			}
 
-            return customers;
-        }
+			return Ok(result);
+		}
 
         // PUT: api/Customers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -63,11 +68,11 @@ namespace DataHandler.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(customers).State = EntityState.Modified;
+            _db.Entry(customers).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -89,14 +94,14 @@ namespace DataHandler.Controllers
         [HttpPost]
         public async Task<ActionResult<Customers>> PostCustomers(Customers customers)
         {
-          if (_context.Customers == null)
+          if (_db.Customers == null)
           {
               return Problem("Entity set 'NorthwindContext.Customers'  is null.");
           }
-            _context.Customers.Add(customers);
+            _db.Customers.Add(customers);
             try
             {
-                await _context.SaveChangesAsync();
+                await _db.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
@@ -117,25 +122,25 @@ namespace DataHandler.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomers(string id)
         {
-            if (_context.Customers == null)
+            if (_db.Customers == null)
             {
                 return NotFound();
             }
-            var customers = await _context.Customers.FindAsync(id);
+            var customers = await _db.Customers.FindAsync(id);
             if (customers == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customers);
-            await _context.SaveChangesAsync();
+            _db.Customers.Remove(customers);
+            await _db.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool CustomersExists(string id)
         {
-            return (_context.Customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();
+            return (_db.Customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();
         }
     }
 }

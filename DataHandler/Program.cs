@@ -1,4 +1,6 @@
 using DataHandler.Models;
+using DataHandler.Models.Infra.DapperRepo;
+using DataHandler.Models.Interface;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<NorthwindContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("NorthwindContext"))); //new ¥X NorthwindContextª«¥ó
+
+builder.Services.AddScoped<ICustomerRepo,CustomerRepo>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

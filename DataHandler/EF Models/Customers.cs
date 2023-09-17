@@ -7,6 +7,12 @@ namespace DataHandler.Models
 {
     public partial class Customers
     {
+        public Customers()
+        {
+            Orders = new HashSet<Orders>();
+            CustomerType = new HashSet<CustomerDemographics>();
+        }
+
         public string CustomerId { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }
@@ -18,5 +24,9 @@ namespace DataHandler.Models
         public string Country { get; set; }
         public string Phone { get; set; }
         public string Fax { get; set; }
+
+        public virtual ICollection<Orders> Orders { get; set; }
+
+        public virtual ICollection<CustomerDemographics> CustomerType { get; set; }
     }
 }
