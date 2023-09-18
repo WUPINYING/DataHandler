@@ -50,7 +50,8 @@ namespace DataHandler.Controllers
 				return BadRequest("找不到商品");
 			}
 
-			_repo.UpdateProduct(dto);
+			var service = new ProductService(_repo);
+			service.UpdateProduct(dto);
 
 			return Ok("商品編輯成功");
 		}
@@ -70,20 +71,17 @@ namespace DataHandler.Controllers
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteProducts(int id)
 		{
-			if (_db.Products == null)
+			bool hasPro = ProductsExists(id);
+			if (hasPro == false)
 			{
-				return NotFound();
+				return Ok("商品刪除失敗");
 			}
-			var products = await _db.Products.FindAsync(id);
-			if (products == null)
+			else
 			{
-				return NotFound();
+				var service = new ProductService(_repo);
+				service.DeleteProduct(id);
+				return Ok("商品刪除成功");
 			}
-
-			_db.Products.Remove(products);
-			await _db.SaveChangesAsync();
-
-			return NoContent();
 		}
 
 		private bool ProductsExists(int id)

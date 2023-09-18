@@ -48,7 +48,15 @@ namespace DataHandler.Models.Infra.EFRepo
 
 			return resultDto;
 		}
-
 		
+		public void DeleteProduct(int id)
+		{
+			var product = _db.Products.Find(id);
+			if (product != null)
+			{
+				_db.Products.Remove(product);
+				_db.SaveChanges();
+			}
+		}
 	}
 }

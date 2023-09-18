@@ -4,13 +4,14 @@
 
 CustmersController
 	-->[HttpGet("{id}")]
-	(v) Create GetCustmerOrderInfo()
-
-	-->[HttpDelte]
+	(v) GetCustmerOrderInfo()	
 
 ProductsController
 	-->[HttpPost]
-	(v) Create CreateProduct
+	(v) CreateProduct
 
 	-->[HttpPut]
-	(v) Create UpdateProduct
+	(v) UpdateProduct
+
+	-->[HttpDelte]
+	(v) DeleteProduct

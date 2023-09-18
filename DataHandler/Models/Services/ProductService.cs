@@ -12,14 +12,21 @@ namespace DataHandler.Models.Services
         {
 			_repo = repo;
         }
+
         public void CreateProduct(ProductDto dto)
 		{
 			_repo.CreateProduct(dto);
 		}
+
 		public ProductDto UpdateProduct(ProductDto dto) 
 		{
 			ProductDto newProductDto = _repo.UpdateProduct(dto);
 			return newProductDto;
+		}
+
+		public void DeleteProduct(int id)
+		{
+			_repo.DeleteProduct(id);
 		}
 	}
 }
