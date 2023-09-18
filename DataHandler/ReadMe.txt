@@ -6,4 +6,4 @@ CustmersController-->[HttpGet("{id}")]
 (v) Create GetCustmerOrderInfo()
 
 ProductsController-->[HttpPost]
-(ing) Create CreateProducts
+(v) Create CreateProducts

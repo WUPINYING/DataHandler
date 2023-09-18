@@ -9,7 +9,6 @@ namespace DataHandler.Models.Exts
         {
             return new ProductDto()
             {
-                ProductId = vm.ProductId,
                 ProductName = vm.ProductName,
                 QuantityPerUnit = vm.QuantityPerUnit,
                 UnitPrice = vm.UnitPrice,

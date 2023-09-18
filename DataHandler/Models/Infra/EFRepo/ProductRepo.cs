@@ -16,8 +16,7 @@ namespace DataHandler.Models.Infra.EFRepo
 		public void CreateProduct(ProductDto dto)
 		{
 			Products products = new Products
-			{
-				ProductId = dto.ProductId,
+			{				
 				ProductName = dto.ProductName,
 				QuantityPerUnit = dto.QuantityPerUnit,
 				UnitPrice = dto.UnitPrice,
