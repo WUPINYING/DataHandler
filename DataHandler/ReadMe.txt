@@ -2,8 +2,15 @@
 (v) DI Container
 (v) Create Files
 
-CustmersController-->[HttpGet("{id}")]
-(v) Create GetCustmerOrderInfo()
+CustmersController
+	-->[HttpGet("{id}")]
+	(v) Create GetCustmerOrderInfo()
 
-ProductsController-->[HttpPost]
-(v) Create CreateProducts
+	-->[HttpDelte]
+
+ProductsController
+	-->[HttpPost]
+	(v) Create CreateProduct
+
+	-->[HttpPut]
+	(v) Create UpdateProduct

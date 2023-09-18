@@ -1,7 +1,5 @@
 ﻿using DataHandler.Models.Dtos;
 using DataHandler.Models.Interface;
-using Microsoft.EntityFrameworkCore.Storage;
-using System.Collections.Generic;
 
 namespace DataHandler.Models.Infra.EFRepo
 {
@@ -26,5 +24,31 @@ namespace DataHandler.Models.Infra.EFRepo
 			_db.Add(products);
 			_db.SaveChangesAsync();
 		}
+
+		public ProductDto UpdateProduct(ProductDto dto)
+		{
+			Products newProductDto = new Products
+			{
+				ProductName = dto.ProductName,
+				QuantityPerUnit = dto.QuantityPerUnit,
+				UnitPrice = dto.UnitPrice,
+				Discontinued = dto.Discontinued
+			};
+
+			_db.Add(newProductDto);
+			_db.SaveChangesAsync();
+
+			ProductDto resultDto = new ProductDto
+			{
+				ProductName = newProductDto.ProductName,
+				QuantityPerUnit = newProductDto.QuantityPerUnit,
+				UnitPrice = newProductDto.UnitPrice,
+				Discontinued = newProductDto.Discontinued
+			};
+
+			return resultDto;
+		}
+
+		
 	}
 }

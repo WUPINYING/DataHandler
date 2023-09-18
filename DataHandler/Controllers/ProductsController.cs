@@ -10,6 +10,7 @@ using DataHandler.Models.ViewModels;
 using DataHandler.Models.Exts;
 using DataHandler.Models.Services;
 using DataHandler.Models.Interface;
+using DataHandler.Models.Dtos;
 
 namespace DataHandler.Controllers
 {
@@ -40,38 +41,24 @@ namespace DataHandler.Controllers
 		// PUT: api/Products/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
-		public async Task<IActionResult> PutProducts(int id, Products products)
+		public async Task<IActionResult> UpdateProduct(int id, ProductDto dto)
 		{
-			if (id != products.ProductId)
+			Products existingProduct = await _db.Products.FindAsync(id);
+
+			if (existingProduct == null)
 			{
-				return BadRequest();
+				return BadRequest("找不到商品");
 			}
 
-			_db.Entry(products).State = EntityState.Modified;
+			_repo.UpdateProduct(dto);
 
-			try
-			{
-				await _db.SaveChangesAsync();
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				if (!ProductsExists(id))
-				{
-					return NotFound();
-				}
-				else
-				{
-					throw;
-				}
-			}
-
-			return NoContent();
+			return Ok("商品編輯成功");
 		}
 
 		// POST: api/Products
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
-		public async Task<ActionResult<ProductVM>> CreateProducts(ProductVM vm)
+		public async Task<ActionResult<ProductVM>> CreateProduct(ProductVM vm)
 		{
 			var service = new ProductService(_repo);
 			service.CreateProduct(vm.ToDto());
