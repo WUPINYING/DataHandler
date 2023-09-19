@@ -6,7 +6,7 @@ namespace DataHandler.Models.Interface
 	{
 		void CreateProduct(ProductDto dto);
 
-		ProductDto UpdateProduct(ProductDto dto);
+		ProductDto UpdateProduct(int id, ProductDto dto);
 
 		void DeleteProduct(int id);
 	};

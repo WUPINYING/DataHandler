@@ -2,7 +2,6 @@ using DataHandler.Models;
 using DataHandler.Models.Infra.DapperRepo;
 using DataHandler.Models.Infra.EFRepo;
 using DataHandler.Models.Interface;
-using DataHandler.Models.Services;
 using Microsoft.EntityFrameworkCore;
 
 

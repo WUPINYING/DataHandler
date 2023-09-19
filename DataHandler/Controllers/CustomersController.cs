@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DataHandler.Models;
 using DataHandler.Models.Interface;
 using DataHandler.Models.Services;
-using DataHandler.Models.Dtos;
 using DataHandler.Models.ViewModels;
 using DataHandler.Models.Exts;
 
@@ -40,7 +34,6 @@ namespace DataHandler.Controllers
                 return NotFound();
             }
             return await _db.Customers.ToListAsync();
-
         }
 
         // GET: api/Customers/5
@@ -57,6 +50,5 @@ namespace DataHandler.Controllers
 
 			return Ok(result);
 		}
-
     }
 }

@@ -18,9 +18,9 @@ namespace DataHandler.Models.Services
 			_repo.CreateProduct(dto);
 		}
 
-		public ProductDto UpdateProduct(ProductDto dto) 
+		public ProductDto UpdateProduct(int id, ProductDto dto) 
 		{
-			ProductDto newProductDto = _repo.UpdateProduct(dto);
+			ProductDto newProductDto = _repo.UpdateProduct( id, dto);
 			return newProductDto;
 		}
 

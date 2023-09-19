@@ -25,30 +25,20 @@ namespace DataHandler.Models.Infra.EFRepo
 			_db.SaveChangesAsync();
 		}
 
-		public ProductDto UpdateProduct(ProductDto dto)
+		public ProductDto UpdateProduct(int id, ProductDto dto)
 		{
-			Products newProductDto = new Products
-			{
-				ProductName = dto.ProductName,
-				QuantityPerUnit = dto.QuantityPerUnit,
-				UnitPrice = dto.UnitPrice,
-				Discontinued = dto.Discontinued
-			};
+			Products existingProduct =  _db.Products.Find(id);
 
-			_db.Add(newProductDto);
-			_db.SaveChangesAsync();
+			existingProduct.ProductName = dto.ProductName;
+			existingProduct.QuantityPerUnit = dto.QuantityPerUnit;
+			existingProduct.UnitPrice = dto.UnitPrice;
+			existingProduct.Discontinued = dto.Discontinued;
 
-			ProductDto resultDto = new ProductDto
-			{
-				ProductName = newProductDto.ProductName,
-				QuantityPerUnit = newProductDto.QuantityPerUnit,
-				UnitPrice = newProductDto.UnitPrice,
-				Discontinued = newProductDto.Discontinued
-			};
+			 _db.SaveChanges();
 
-			return resultDto;
+			return dto;
 		}
-		
+
 		public void DeleteProduct(int id)
 		{
 			var product = _db.Products.Find(id);
