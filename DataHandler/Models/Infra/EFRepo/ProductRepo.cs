@@ -22,7 +22,7 @@ namespace DataHandler.Models.Infra.EFRepo
 			};
 
 			_db.Add(products);
-			_db.SaveChangesAsync();
+			_db.SaveChanges();
 		}
 
 		public ProductDto UpdateProduct(int id, ProductDto dto)
